@@ -12,10 +12,9 @@ function App() {
   const [location, setLocation] = useState("");
   const [addressBook, setAddressBook] = useState([]);
 
-  //this event will handle the user typing in the input. 
+  //this event will handle the user typing in the inputs. 
   //when the user types in the input box
   //grab the contents of the box
-  //set it to the userInput variable
   const handleAliasChange = (event) => {
     setAlias(event.target.value);
   }
@@ -28,7 +27,7 @@ function App() {
     setLocation(event.target.value);
   }
 
-  //this event will handle the user clicking 'add my info'
+  //this event will handle the user clicking 'add person'
   const handleSubmit = (event) => {
     //prevent default (page from refreshing)
     event.preventDefault();
@@ -52,19 +51,17 @@ function App() {
 
   //create an event listener that will handle the user clicking "remove"
   const handleRemove = (infoId) => {
-    console.log(infoId);
-    //this funtion will take an argument which is the id of the book we want to remove
+    //this funtion will take an argument which is the id of the person we want to remove
     //create a reference tot he database - in this case, the specific node we want to remove
     const database = getDatabase(firebase);
     const dbRef = ref(database, `/${infoId}`);
-    //using the firebase remove() module, we remove the node specific to the book id
+    //using the firebase remove() module, we remove the node specific to the person id
     remove(dbRef);
   }
 
 
   //ON PAGELOAD (initial render/ component mount)
   useEffect(() => {
-    // console.log('intialized this dope app');
     //create a variable that holds our database details (getDatabase)
     const database = getDatabase(firebase);
     //create a variable that makes a reference to our database (ref)
@@ -81,7 +78,7 @@ function App() {
 
       for (let key in data) {
 
-        //inside our loop, we push each book name to our newState array which we have already created
+        //inside our loop, we push each data to our newAddressBook array which we have already created
         const tempObject = data[key];
         tempObject.key = key;
         newAddressBook.push(tempObject);
@@ -90,13 +87,12 @@ function App() {
     });
   }, []);
 
-  console.log(addressBook);
 
   return (
-    <div>
-      <h1>Look, people!</h1>
+    <main className="wrapper">
+      <h1>Colleague Book</h1>
       <form action="submit">
-        <label htmlFor="newInfo">Add a person to your address book!</label>
+        <label htmlFor="newInfo">Wat's their name?</label>
         <input
           required
           type="text"
@@ -114,7 +110,7 @@ function App() {
           value={email}
           type="email" />
 
-        <label htmlFor="email">What's their email?</label>
+        <label htmlFor="email">What's their location?</label>
         <input
           required
           placeholder="Location"
@@ -127,7 +123,7 @@ function App() {
       </form>
       <ul>
         {
-          //map through our info state to put them on the page
+          //map through our info state to put the info on the page
           addressBook.map((info) => {
             return (
               <li key={info.key}>
@@ -140,7 +136,7 @@ function App() {
           })
         }
       </ul>
-    </div >
+    </main>
   );
 }
 
