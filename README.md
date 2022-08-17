@@ -1,5 +1,7 @@
 Welcome to my CRUD app!
 
+The app uses npm, and localhost:3000 to be seen on the browser.
+
 - I was unable to get the back end working unfortunately. I spent quite a bit of time googling and working on understanding and putting in practice my findings, but I was short on time, and couldn't get thigs fully functionning. 
 
 - I decided to stick to everything I know for now, and to store data in Firebase and work in React in order to submit a working app.
